@@ -3,7 +3,7 @@ import TodoListItem from './TodoListItem';
 import { useSelector} from 'react-redux';
 
 
--
+
 export default function TodoList (){
   //This `todos` variable is currently subcribed to 'todos' state in Redux store
   const todos = useSelector(state => state.todos); 

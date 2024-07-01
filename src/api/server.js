@@ -2,7 +2,8 @@
 
 import { Server, Model, Factory, hasMany, RestSerializer } from 'miragejs'
 
-// import faker from 'faker'
+import {faker} from '@faker-js/faker'
+
 import seedrandom from 'seedrandom'
 
 const IdSerializer = RestSerializer.extend({
@@ -17,6 +18,7 @@ let useSeededRNG = false
 
 let rng = seedrandom()
 
+
 if (useSeededRNG) {
   let randomSeedString = localStorage.getItem('randomTimestampSeed')
   let seedDate
@@ -30,7 +32,7 @@ if (useSeededRNG) {
   }
 
   rng = seedrandom(randomSeedString)
-  // faker.seed(seedDate.getTime())
+  faker.seed(seedDate.getTime())
 }
 
 function getRandomInt(min, max) {
@@ -60,7 +62,7 @@ const generateTodoText = () => {
 new Server({
   routes() {
     this.namespace = 'fakeApi'
-    //this.timing = 2000
+    this.timing = 2000
 
     this.resource('todos')
     this.resource('lists')

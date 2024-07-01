@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
-// import './api/server'
+import './api/server'
 import store from './store';
 
+import { fetchTodos } from './feature/todos/todoSlice';
+
+// store.dispatch(fetchTodos);
 ReactDOM.createRoot(document.getElementById('root')).render(
 
     <Provider store={store}>
@@ -14,6 +17,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 
 )
+
+
+
 
 
 // import React from 'react'

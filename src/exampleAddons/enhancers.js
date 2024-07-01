@@ -12,16 +12,19 @@ export function sayHiOnDispatch(createStore){
 
       return result;
     /*
-      This is a wrapper function will be the new behavior of the 'dispatch' field of the store. by { ...store, dispatch: newDispatch } similar to reducer function.
-      Pero kadalasan daw, ginagamit lang yung pag modify sa dispatch or store enhancer if gusto mong may mangyari AFTER ma-execute yung reducer function.
+      This is a wrapper function which will be the new behavior of the `dispatch` field of the 
+      store by { ...store, dispatch: newDispatch } similar to reducer function.
+      Pero kadalasan daw, ginagamit lang yung pag modify sa dispatch or store enhancer 
+      if gusto mong may mangyari AFTER ma-execute yung reducer function.
       FROM DOCUMENTATION:
       When we called `store.dispatch()`, we were actually calling the wrapper function from 
         `sayHiOnDispatch`, which called the original and then printed 'Hi'.
     */
     }
 
-    //This is the code for modifying the actual or original behavior of the `dispatch` field of the `store` similar to reducer function.
-    //Meaning yung original behavior ng `store.dispatch()`, magiging 'newDispatch' function sa taas  
+    /*This is the code for modifying the actual or original behavior of the `dispatch` field 
+    of the `store` similar to reducer function.
+    Meaning yung original behavior ng `store.dispatch()`, magiging 'newDispatch' function sa taas  */
     return { ...store, dispatch: newDispatch }
   }
 }
@@ -38,6 +41,7 @@ export  function includeMeaningOfLife(createStore){
 
   
     //Meaning yung original behavior ng 'store.getState()', magiging 'newGetState' function sa taas,
+    //Kung saan andoon yung process ng pag-lagay ng new fields and values sa state.
     return { ...store, getState: newGetState }
   }
 }

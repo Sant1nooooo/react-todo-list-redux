@@ -20,7 +20,7 @@ function TodoListItem ({todo}){
       {capitalize(c)}
     </option>
   ))
-  console.log(todo.id);
+  // console.log(todo.id);
   return (
     <li>
       <div className="view">

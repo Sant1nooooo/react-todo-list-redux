@@ -1,3 +1,6 @@
+import {client} from '../../api/client';
+
+
 const initialState = []
 
 function nextTodoId(todos) {
@@ -40,9 +43,27 @@ export default function todosReducer(state = initialState, action) {
     case 'todos/completedCleared': {
       return state.filter((todo) => !todo.completed)
     }
+    case 'todos/todosLoaded':{
+      console.log('Executing todosLoaded case');
+      return action.payload;
+    }
     default:
       return state
-  }
+  } 
 }
 
+export async function fetchTodos(dispatch, getState) {
+  const response = await client.get('/fakeApi/todos') //Retrieving the list of todo in a fake API route.
+  console.log('Executing fetchTodos() function');
+  dispatch({ type: 'todos/todosLoaded', payload: response.todos });
+  console.log(getState().todos.length);
+}
 
+export function saveNewTodo(text) {
+  // And then creates and returns the async thunk function:
+  return async function saveNewTodoThunk(dispatch, getState) {
+    const initialTodo = { text }
+    const response = await client.post('/fakeApi/todos', { todo: initialTodo })
+    dispatch({ type: 'todos/todoAdded', payload: response.todo })
+  }
+}
