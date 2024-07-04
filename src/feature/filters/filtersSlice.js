@@ -19,7 +19,7 @@ export default function filtersReducer(state = initialState, action) {
     case 'filters/colorFilterChanged': {
       let { color, changeType } = action.payload
       const { colors } = state;
-      console.log(color, changeType)
+      // console.log(color, changeType);
 
       switch (changeType) {
         case 'added': {
@@ -33,9 +33,15 @@ export default function filtersReducer(state = initialState, action) {
         default:
           return state
       }
-      return state;
     }
     default:
       return state
   }
 }
+
+
+export function colorFilterChange(color, changeType)
+{
+  return {type: 'filters/colorFilterChanged', payload:{color: color, changeType: changeType}};
+}
+

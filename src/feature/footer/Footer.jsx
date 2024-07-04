@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { availableColors, capitalize } from '../filters/colors';
 import { StatusFilters } from '../filters/filtersSlice';
-import { useDispatch } from 'react-redux';
+import { availableColors, capitalize } from '../filters/colors';
+import { useSelector,useDispatch } from 'react-redux';
+import { colorFilterChange } from '../filters/filtersSlice';
+import React from 'react';
 
 const RemainingTodos = ({ count }) => {
   const suffix = count === 1 ? '' : 's'
@@ -24,7 +24,7 @@ const StatusFilter = ({ value: status, dispatch }) => {
       dispatch({type: 'filters/statusFilterChanged', payload: value});
     }
     
-    const className = value === status ? 'selected' : ''
+    const className = value === status ? 'selected' : '';
 
     return (
       <li key={value}>
@@ -44,11 +44,15 @@ const StatusFilter = ({ value: status, dispatch }) => {
 }
 
 const ColorFilters = ({ value: colors, dispatch}) => {
+
   const renderedColors = availableColors.map((color) => {
     const checked = colors.includes(color);
-    function handleChange(value){
-      const changeType = checked ? 'removed' : 'added'
-      dispatch({type: 'filters/colorFilterChanged', payload: {color: color, changeType:changeType}})
+    const changeType = checked ? 'removed' : 'added';
+
+    function handleChange()
+    {
+      dispatch(colorFilterChange(color, changeType));// Action creator;
+      // dispatch({type: 'filters/colorFilterChanged', payload: {color: color, changeType:changeType}});
     }
 
     return (
@@ -63,7 +67,9 @@ const ColorFilters = ({ value: colors, dispatch}) => {
   return (
     <div className="filters colorFilters">
       <h5>Filter by Color</h5>
-      <form className="colorSelection">{renderedColors}</form>
+      <form className="colorSelection">
+        {renderedColors}
+      </form>
     </div>
   )
 }
@@ -77,7 +83,6 @@ const Footer = () => {
     return uncompletedTodos.length;
   });
 
-  // console.log(colors);
   return (
     <footer className="footer">
       <div className="actions">

@@ -4,6 +4,7 @@ import { availableColors, capitalize } from '../filters/colors';
 import { memo } from 'react';
 
 function TodoListItem ({todo}){
+  //const todo = useSelector(state => state.todos.find(eachTodo => eachTodo.id == todoID));
   const { text, completed, color } = todo;
   const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ function TodoListItem ({todo}){
       {capitalize(c)}
     </option>
   ))
-  // console.log(todo.id);
+  
   return (
     <li>
       <div className="view">

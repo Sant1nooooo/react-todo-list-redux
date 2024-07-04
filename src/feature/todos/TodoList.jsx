@@ -1,23 +1,14 @@
 import React from 'react';
 import TodoListItem from './TodoListItem';
 import { useSelector} from 'react-redux';
-
+import { selectTodoIds } from './todoSlice'
 
 
 export default function TodoList (){
-  //This `todos` variable is currently subcribed to 'todos' state in Redux store
-  const todos = useSelector(state => state.todos); 
-  
-  //This `todos` variable is currently subcribed to 'filter' 
-  //state(an object) that has `colors` and `status` fields from Redux store
+  // const todoIDList = useSelector(selectTodoIds); //This creates an array of IDs to each todo in the todo-list;
+  const todos = useSelector(state => state.todos);
   const {colors, status} = useSelector(state => state.filters)
-  // console.log(colors);
-  //useSelector hook automatically subscribed to the Redux store without needing to use store.subscribe().
-  //Meaning, whenever the value of the state from the Redux store changes, selector function will run again and 
-  //will force the component to re-render and make some change to the UI base on the updated value of
-  //the state from the Redux store.
-  //and the useSelector uses the === strict comparison to compare the previous value to the new value of the state.
-  // const todos = [];
+  
   if(colors.length > 0)
   {
     if(status === 'active')
@@ -50,7 +41,7 @@ export default function TodoList (){
           </ul>
         );
       }
-      console.log('DISPLAYING ALL TODO THAT HAS COLOR'); 
+      // console.log('DISPLAYING ALL TODO THAT HAS COLOR'); 
       return(
         <ul className="todo-list">
           {todos.map((todo) => {
@@ -61,37 +52,36 @@ export default function TodoList (){
       )
   }
 
-
   if(status === 'active')
-    {
-      console.log('NO COLOR: Displaying all active todo');
-      return (
-        <ul className="todo-list">
-          {todos.map(todo=>{
-  
-            if(!todo.completed) return <TodoListItem key={todo.id} todo={todo} /> 
-  
-          })}
-        </ul>
-      );
-    }
-    else if(status === 'completed'){
-      console.log('NO COLOR: Displaying all completed todo');
-      return (
-        <ul className="todo-list">
-          {todos.map(todo=>{
-  
-            if(todo.completed) return <TodoListItem key={todo.id} todo={todo} /> 
-  
-          })}
-        </ul>
-      );
-    }
-    return(
+  {
+    // console.log('NO COLOR: Displaying all active todo');
+    return (
       <ul className="todo-list">
-        {todos.map((todo) => {
-          return <TodoListItem key={todo.id} todo={todo} />
+        {todos.map(todo=>{
+
+          if(!todo.completed) return <TodoListItem key={todo.id} todo={todo} /> 
+          //<TodoListItem key={todo.id} todoID={eachID} /> for createSelector ONLY. 
         })}
       </ul>
-    )
+    );
+  }
+  else if(status === 'completed'){
+    // console.log('NO COLOR: Displaying all completed todo');
+    return (
+      <ul className="todo-list">
+        {todos.map(todo=>{
+
+          if(todo.completed) return <TodoListItem key={todo.id} todo={todo} /> 
+
+        })}
+      </ul>
+    );
+  }
+  return(
+    <ul className="todo-list">
+      {todos.map((todo) => {
+        return <TodoListItem key={todo.id} todo={todo} />
+      })}
+    </ul>
+  )
 }

@@ -8,7 +8,7 @@ import store from './store';
 
 import { fetchTodos } from './feature/todos/todoSlice';
 
-// store.dispatch(fetchTodos);
+// store.dispatch(fetchTodos());
 ReactDOM.createRoot(document.getElementById('root')).render(
 
     <Provider store={store}>
